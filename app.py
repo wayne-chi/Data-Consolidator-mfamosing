@@ -206,8 +206,16 @@ if uploaded_files:
                         
                     with col2:
                         st.write("Or copy data directly (click icon in top right):")
-                        # Convert to tab-separated text so it drops the index and pastes neatly into Excel
-                        tsv_data = final_report.to_csv(index=False, sep='\t')
+                        
+                        # Create a temporary copy just for the clipboard
+                        df_clipboard = final_report.copy()
+                        
+                        # Prepend a single quote to force Excel to read it as text
+                        df_clipboard['Hour'] = "'" + df_clipboard['Hour'].astype(str)
+                        
+                        # Convert to tab-separated text, dropping BOTH index and headers
+                        tsv_data = df_clipboard.to_csv(index=False, header=False, sep='\t')
+                        
                         st.code(tsv_data, language="text")
                     # st.download_button(
                     #     label="Download Excel Report",
@@ -223,6 +231,7 @@ if uploaded_files:
             else:
 
                 st.error("No valid files matching the criteria (mfamosing + genset keywords) were found.")
+
 
 
 
