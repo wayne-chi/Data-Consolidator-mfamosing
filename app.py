@@ -55,6 +55,10 @@ def master_process(groups_dict):
 
         # Standardize Hour strings for clean merging (e.g., "00-01")
         subset['Hour'] = subset['Hour'].astype(str).str.strip()
+        # convert all to Megawatts
+        kwh_cols = [col for col in subset.columns if 'Kwh' in col]
+        subset[kwh_cols] = subset[kwh_cols].apply(pd.to_numeric, errors='coerce') / 1000
+        subset.columns = [col.replace('Kwh', 'Mwh') for col in subset.columns]
 
         return subset
 
@@ -197,4 +201,5 @@ if uploaded_files:
                 else:
                     st.warning("Processed files but the resulting report was empty. Check file content structure.")
             else:
+
                 st.error("No valid files matching the criteria (mfamosing + genset keywords) were found.")
