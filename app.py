@@ -193,18 +193,37 @@ if uploaded_files:
                         
                     # Important: Seek to start of stream
                     buffer.seek(0)
+                    # Create columns to put the download and copy options side-by-side
+                    col1, col2 = st.columns(2)
                     
-                    st.download_button(
-                        label="Download Excel Report",
-                        data=buffer,
-                        file_name="consolidated_genset_report.xlsx",
-                        mime="application/vnd.ms-excel"
-                    )
+                    with col1:
+                        st.download_button(
+                            label="Download Excel Report",
+                            data=buffer,
+                            file_name="consolidated_genset_report.xlsx",
+                            mime="application/vnd.ms-excel"
+                        )
+                        
+                    with col2:
+                        st.write("Or copy data directly (click icon in top right):")
+                        # Convert to tab-separated text so it drops the index and pastes neatly into Excel
+                        tsv_data = final_report.to_csv(index=False, sep='\t')
+                        st.code(tsv_data, language="text")
+                    # st.download_button(
+                    #     label="Download Excel Report",
+                    #     data=buffer,
+                    #     file_name="consolidated_genset_report.xlsx",
+                    #     mime="application/vnd.ms-excel"
+                    # )
+
+
+                
                 else:
                     st.warning("Processed files but the resulting report was empty. Check file content structure.")
             else:
 
                 st.error("No valid files matching the criteria (mfamosing + genset keywords) were found.")
+
 
 
 
