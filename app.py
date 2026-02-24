@@ -182,7 +182,8 @@ if uploaded_files:
                 if not final_report.empty:
                     st.success("Consolidation complete!")
                     # st.dataframe(final_report.head())
-                    st.table(final_report.style.hide(axis="index"))
+                    st.dataframe(final_report, hide_index=True, height=900)
+                    # st.table(final_report.style.hide(axis="index"))
                     
                     # 4. Create Downloadable Excel
                     buffer = io.BytesIO()
@@ -204,6 +205,7 @@ if uploaded_files:
             else:
 
                 st.error("No valid files matching the criteria (mfamosing + genset keywords) were found.")
+
 
 
 
