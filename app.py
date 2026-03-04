@@ -3,6 +3,8 @@ import pandas as pd
 import re
 import io
 from datetime import datetime
+import os
+
 
 # ==========================================
 # CONSTANTS & MAPS
@@ -334,3 +336,4 @@ with tab2:
                         )
                     except Exception as e:
                         st.error(f"Failed to process {file_obj.name}. Error: {e}")
+
