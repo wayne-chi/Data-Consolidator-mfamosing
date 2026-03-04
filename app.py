@@ -189,7 +189,7 @@ def process_device_data(df, csv_file, device_map):
     else:
         save_path_list.append(renamed_cols[0] + '....' + renamed_cols[-1])
         
-    save_path_name = ' '.join(save_path_list[:-4])
+    save_path_name = ' '.join(save_path_list[:-1])
     
     # Note: df.to_csv is purposely omitted here to prevent saving to the server's disk
 
@@ -336,5 +336,6 @@ with tab2:
                         )
                     except Exception as e:
                         st.error(f"Failed to process {file_obj.name}. Error: {e}")
+
 
 
