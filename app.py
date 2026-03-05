@@ -388,6 +388,9 @@ with tab3:
                 try:
                     df_raw = pd.read_csv(file_obj)
                     processed_df, out_filename = process_CA_temp(df_raw, file_obj.name, device_map_all)
+                   
+                    st.write(f"**Preview for:** {out_filename.replace('.csv', '')}")
+                    st.dataframe(processed_df, hide_index=True)
                     create_excel_download(processed_df, out_filename, "ca")
                 except Exception as e:
                     st.error(f"Error on {file_obj.name}: {e}")
@@ -406,6 +409,10 @@ with tab4:
                 try:
                     df_raw = pd.read_csv(file_obj)
                     processed_df, out_filename = process_power(df_raw, file_obj.name, device_map_all, divide_by_1000=ae_divide)
+                    
+                    st.write(f"**Preview for:** {out_filename.replace('.csv', '')}")
+                    st.dataframe(processed_df, hide_index=True)
+                    # -------------------------
                     create_excel_download(processed_df, out_filename, "ae")
                 except Exception as e:
                     st.error(f"Error on {file_obj.name}: {e}")
@@ -423,6 +430,11 @@ with tab5:
                 try:
                     df_raw = pd.read_csv(file_obj)
                     processed_df, out_filename = process_power(df_raw, file_obj.name, device_map_all, divide_by_1000=False)
+                    # preview
+                    st.write(f"**Preview for:** {out_filename.replace('.csv', '')}")
+                    st.dataframe(processed_df, hide_index=True)
+                    # -------------------------
                     create_excel_download(processed_df, out_filename, "fu")
                 except Exception as e:
                     st.error(f"Error on {file_obj.name}: {e}")
+
